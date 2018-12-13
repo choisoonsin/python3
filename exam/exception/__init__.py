@@ -1,0 +1,1 @@
+f = open("C://test.txt" , 'r')

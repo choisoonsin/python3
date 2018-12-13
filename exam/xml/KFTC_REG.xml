@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource ADAPTER_NAME="KFTC_REG" 
+          DESCRIPTION="HOST - FEP - 금결원 자동이체계좌등록 증빙파일 첨부 전용 어댑터" 
+          ENCODING="EUC-KR" 
+          TARGET_IP="10.10.200.135" 
+          TARGET_PORT="4081" 
+          SYNC_TYPE="SYNC"
+          HEADER_SIZE="4"
+          HEADER_EXIST_YN="N"
+          TIME_OUT="30000"
+          DEBUG="TRUE" >
+
+	<!-- 금결원 공통부 해더 -->
+    <interface ID="TKFSCMS" SR_TYPE="C" DESCRIPTION="공통부">
+		<field ID="Msg_Length" NAME="msg" TYPE="9" LENGTH="4" />
+		<field ID="Txt_Stat" NAME="TEXT 개시문자" TYPE="X" LENGTH="3" />
+		<field ID="Msg_H" NAME="전문 Header" TYPE="X" LENGTH="9" />
+		<field ID="Msg_Type" NAME="전문 Type" TYPE="9" LENGTH="4" />
+		<field ID="Pri_Bit" NAME="Primary Bitmap" TYPE="X" LENGTH="16" />
+    </interface>
+	
+	<interface ID="TKFSCMS400" SR_TYPE="S" DESCRIPTION="증빙파일전송(0400) - 요청">
+		<field INCLUDE="TKFSCMS" />
+		<field ID="Tran_CD" NAME="거래구분코드" TYPE="9" LENGTH="6" />
+		<field ID="Trans_Date" NAME="전문전송일시" TYPE="9" LENGTH="10" />
+		<field ID="Msg_No" NAME="전문추적번호" TYPE="9" LENGTH="6" />
+		<field ID="Org_CD" NAME="이용기관식별코드" TYPE="X" LENGTH="15" />
+		<field ID="File_Req_Msg_No" NAME="증빙자료전송요청 전문추적번호" TYPE="9" LENGTH="6" />
+		<field ID="File_Msg_Cnt" NAME="증빙자료 전문 전체 개수" TYPE="9" LENGTH="4" />
+		<field ID="File_Msg_Seq" NAME="증빙자료 전문 전체 중 n번째" TYPE="9" LENGTH="4" />
+		<field ID="File_Total_len" NAME="증빙자료 전체 사이즈" TYPE="9" LENGTH="7" />
+	</interface>
+	
+	<interface ID="TKFSCMS410" SR_TYPE="R" DESCRIPTION="증빙파일전송(0410) - 응답">
+		<field INCLUDE="TKFSCMS" />
+		<field ID="Tran_CD" NAME="거래구분코드" TYPE="9" LENGTH="6" />
+		<field ID="Trans_Date" NAME="전문전송일시" TYPE="9" LENGTH="10" />
+		<field ID="Msg_No" NAME="전문추적번호" TYPE="9" LENGTH="6" />
+		<field ID="Org_CD" NAME="이용기관식별코드" TYPE="X" LENGTH="15" />
+		<field ID="File_Req_Msg_No" NAME="증빙자료전송요청 전문추적번호" TYPE="9" LENGTH="6" />
+		<field ID="File_Msg_Cnt" NAME="증빙자료 전문 전체 개수" TYPE="9" LENGTH="4" />
+		<field ID="File_Msg_Seq" NAME="증빙자료 전문 전체 중 n번째" TYPE="9" LENGTH="4" />
+		<field ID="File_Total_len" NAME="증빙자료 전체 사이즈" TYPE="9" LENGTH="7" />
+		<field ID="Response_code" NAME="응답코드" TYPE="9" LENGTH="7" />
+		<field ID="Response_desc" NAME="오류메시지" TYPE="X" LENGTH="80" />
+		<field ID="Filler" NAME="FILLER" TYPE="X" LENGTH="195" />
+	</interface>
+	
+</resource>
