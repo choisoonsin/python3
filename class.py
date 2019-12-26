@@ -18,7 +18,7 @@ class calculator:
 class extendCal(calculator):
     pass
     
-print(type(calculator))
+print("calculator type:", type(calculator))
 
 x = 1
 
