@@ -9,7 +9,18 @@ html = urlopen("https://www.python.org/about")
 bsObject = BeautifulSoup(html, "html.parser")
 
 # 전체 html 구조 
-# print(bsObject.prettify())
+test_html_string = bsObject.prettify()
+
+# Using open Built-in functions to write html tag
+html_file_name = "C:\\html.txt"
+with open(html_file_name, mode='r', encoding='utf8') as f:
+    read_data = f.read()
+    print(len(read_data))
+    if read_data:
+        print("passed")
+    else:
+        with open(html_file_name, mode='w', encoding='utf8') as f:
+            f.write(test_html_string)
 
 # header
 # print(bsObject.head)
@@ -21,12 +32,12 @@ for meta in bsObject.head.find_all("meta"):
 print("\r\n")
 
 # header 안의 meta 태그중 name 속성(attribute) 값이 description인 대상 추출
-tagForvalueIsDesciprtion = bsObject.head.find("meta", {"name":"description"})
-print("속성 name의 값이 description인 대상 추출", tagForvalueIsDesciprtion, "What type is it?", type(tagForvalueIsDesciprtion))
+tags_that_has_desciprtion = bsObject.head.find("meta", {"name":"description"})
+print("속성 name의 값이 description인 대상 추출", tags_that_has_desciprtion, "What type is it?", type(tags_that_has_desciprtion))
 
 print("\r\n")
 
-print(tagForvalueIsDesciprtion.get("content"))
+print(tags_that_has_desciprtion.get("content"))
 
 print("\r\n")
 
@@ -41,5 +52,16 @@ print("linkList length is %d, data=\n%s" % (len(linkList),  linkList))
 
 print("\r\n")
 
-# select - list 반환
-print(bsObject.select("span"))
+
+""" CSS Selector """
+# body내에 div 중 id가 nojs 인 tag 선택
+tags_nojs = bsObject.select("body > div > #nojs")
+
+if tags_nojs:
+    for tag in tags_nojs:
+        print(tag)
+
+# 첫번째 menu class를 갖는 ul태그의 출력
+tags_menu = bsObject.select_one("ul.menu")
+
+print(tags_menu)
