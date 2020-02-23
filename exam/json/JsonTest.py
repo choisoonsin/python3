@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 import json
 
-data = {"name":"cyh" , "addr":"seoul" , "list":[{"a":"41"},{"b":"22"}] , "desc":"한국"}
+data = {
+  "name":"Hong gil dong", 
+  "addr":"seoul, Korea", 
+  "age": 37,
+  "hobbies":["Watching movie", "Reading Novels"],
+}
 
 d = json.dumps(data , indent=2)
 print("desc:" , data.get("desc"))
