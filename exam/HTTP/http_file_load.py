@@ -1,7 +1,7 @@
 from urllib.request import urlopen
 from zipfile import ZipFile
 from io import BytesIO
-import Requests
+import ssl
 
 def bind_params(params : dict):
   url_params = []
@@ -17,10 +17,8 @@ params = {
 
 url = url + '&'.join(bind_params(params))
 
-resp = urlopen('https://github.com')
-print(resp.read())
-
-
+resp = urlopen(url)
+print(resp.read().decode())
 
 # print(url)
 
