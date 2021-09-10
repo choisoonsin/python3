@@ -1,37 +1,22 @@
 # -*- coding:utf-8 -*-
-from xml.etree.ElementTree import Element , SubElement , dump
+from xml.etree.ElementTree import Element, SubElement , dump, indent
 
-resource = Element("resource" , {"ADAPTER_NAME":"STBK" , "DESCRIPTION":"설명"})
+root_el = Element("FRUITS" , {"DESCRIPTION":"FRUIT SCHEME"})
+fruit_el = Element("FRUIT" , {"ID":"FR0001" , "KO_NAME":"바나나" , "EN_NAME":"BANANA"})
+root_el.append(fruit_el)
 
-interface = Element("interface" , {"ID":"KIBN_COMMON" , "SR_TYPE":"C"})
+fruit_sub_el = Element("FIELD" , {"당도":"4"})
+fruit_el.append(fruit_sub_el)
+fruit_sub_el = Element("FIELD" , {"가격":"4000"})
+fruit_el.append(fruit_sub_el)
 
-field = Element("field" , {"ID":"LENGTH" , "NAME":"길이" , "TYPE":"9" , "LENGTH":"4"})
-interface.append(field)
+interface = Element("FRUIT" , {"ID":"FR0002" , "KO_NAME":"사과" , "EN_NAME":"APPLE"})
 
-resource.append(interface)
-
-interface = Element("interface" , {"ID":"STBK_COMMON" , "SR_TYPE":"C"})
-
-resource.append(interface)
+root_el.append(interface)
 
 dummy = Element("dummy")
-dummy.text = "dummy!!"
-resource.insert(2 , dummy)
+root_el.insert(4 , dummy)
+SubElement(dummy, "test", {"attr1":"test", "attr2":"5000", "attr3":"True"})
 
-def indent(elem, level=0):
-    i = "\n" + level*"  "
-    if len(elem):
-        if not elem.text or not elem.text.strip():
-            elem.text = i + "  "
-        if not elem.tail or not elem.tail.strip():
-            elem.tail = i
-        for elem in elem:
-            indent(elem, level+1)
-        if not elem.tail or not elem.tail.strip():
-            elem.tail = i
-    else:
-        if level and (not elem.tail or not elem.tail.strip()):
-            elem.tail = i
-            
-indent(resource) 
-dump(resource)           
+indent(root_el) 
+dump(root_el)           
