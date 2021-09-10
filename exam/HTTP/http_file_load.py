@@ -1,7 +1,14 @@
+# -*- coding: utf-8 -*-
+import sys
 from urllib.request import urlopen
 from zipfile import ZipFile
 from io import BytesIO
-import Requests
+
+sys.path.append('C://users//cyh02//anaconda3//lib//site-packages ')
+import pandas as pd
+import json
+
+print('path:', sys.path)
 
 def bind_params(params : dict):
   url_params = []
@@ -17,20 +24,16 @@ params = {
 
 url = url + '&'.join(bind_params(params))
 
-resp = urlopen('https://github.com')
-print(resp.read())
+resp = urlopen(url)
 
 
+if resp.code == 200:
+    resp_json = resp.read().decode()
+    resp_json = json.loads(resp_json)
 
-# print(url)
+    print(list(resp_json.items()))
 
-# ssl.OPENSSL_VERSION
-# resp = urlopen(url)
+    data = pd.json_normalize(resp_json)
+    print(data.head())
 
-# print(resp)
-
-# with ZipFile(BytesIO(resp.read())) as zf:
-#   file_list = zf.namelist()
-#   while len(file_list) > 0:
-#     file_name = file_list.pop()
-#     print(file_name)
+#df.show()

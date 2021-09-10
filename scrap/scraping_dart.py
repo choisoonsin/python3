@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-"""
-http://dart.fss.or.kr/ 사이트에서 기업개황 정보 스크래핑
-"""
+
+import sys
 from bs4 import BeautifulSoup
 import requests
 
