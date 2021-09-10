@@ -9,6 +9,7 @@ import pandas as pd
 import json
 
 print('path:', sys.path)
+import ssl
 
 def bind_params(params : dict):
   url_params = []
@@ -25,6 +26,7 @@ params = {
 url = url + '&'.join(bind_params(params))
 
 resp = urlopen(url)
+print(resp.read().decode())
 
 if resp.code == 200:
     resp_json = resp.read().decode()
