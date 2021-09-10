@@ -26,7 +26,6 @@ url = url + '&'.join(bind_params(params))
 
 resp = urlopen(url)
 
-
 if resp.code == 200:
     resp_json = resp.read().decode()
     resp_json = json.loads(resp_json)
